@@ -1,0 +1,6 @@
+# Local API key — copy config.example.js to config.js and never commit it
+config.js
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

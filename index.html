@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app" id="app" data-condition="default">
+    <header class="app__header">
+      <div class="app__brand">
+        <span class="app__dot" aria-hidden="true"></span>
+        <span class="app__name">Weather</span>
+      </div>
+      <button class="unit-toggle" id="unit-toggle" type="button" aria-pressed="false">
+        °C
+      </button>
+    </header>
+
+    <form class="search" id="search-form">
+      <input
+        type="text"
+        id="city-input"
+        class="search__input"
+        placeholder="Search a city…"
+        autocomplete="off"
+        aria-label="City name"
+      />
+      <button type="submit" class="search__btn" aria-label="Search">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8" />
+          <path d="M17 17l-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </form>
+
+    <div class="state-card notice" id="setup-notice" hidden>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 13v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <circle cx="20" cy="27.5" r="1.4" fill="currentColor" />
+        <circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+      <p><strong>No API key configured yet.</strong><br />Copy <code>config.example.js</code> to <code>config.js</code> and add your OpenWeatherMap key. See the README for setup steps.</p>
+    </div>
+
+
+    <div class="skeleton" id="skeleton" hidden>
+      <div class="skeleton__hero">
+        <div class="skeleton__block skeleton__icon"></div>
+        <div class="skeleton__block skeleton__temp"></div>
+      </div>
+      <div class="skeleton__block skeleton__line" style="width: 40%"></div>
+      <div class="skeleton__block skeleton__line" style="width: 65%"></div>
+      <div class="skeleton__grid">
+        <div class="skeleton__block skeleton__stat"></div>
+        <div class="skeleton__block skeleton__stat"></div>
+        <div class="skeleton__block skeleton__stat"></div>
+        <div class="skeleton__block skeleton__stat"></div>
+      </div>
+    </div>
+
+
+    <div class="state-card error-card" id="error-card" hidden>
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 6l17 29H3L20 6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        <path d="M20 17v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <circle cx="20" cy="29" r="1.3" fill="currentColor" />
+      </svg>
+      <p id="error-text">City not found. Check the spelling and try again.</p>
+    </div>
+
+
+    <div class="state-card empty-state" id="empty-state">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="16" cy="16" r="7" stroke="currentColor" stroke-width="1.5" />
+        <path d="M23 26h7a5 5 0 0 0 1-9.9 8 8 0 0 0-15.3-2.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <p>Search a city to see the current conditions.</p>
+    </div>
+
+
+    <section class="result" id="weather-info" hidden aria-live="polite">
+      <div class="result__hero">
+        <svg class="result__icon" id="condition-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+        <div class="result__temp-block">
+          <p class="result__temp"><span id="temperature">--</span>°</p>
+          <p class="result__feels" id="feels-like"></p>
+        </div>
+      </div>
+
+      <h2 class="result__city" id="city-name"></h2>
+      <p class="result__desc" id="description"></p>
+
+      <dl class="stats-grid">
+        <div class="stats-grid__item">
+          <dt>Humidity</dt>
+          <dd id="stat-humidity">—</dd>
+        </div>
+        <div class="stats-grid__item">
+          <dt>Wind</dt>
+          <dd id="stat-wind">—</dd>
+        </div>
+        <div class="stats-grid__item">
+          <dt>Pressure</dt>
+          <dd id="stat-pressure">—</dd>
+        </div>
+        <div class="stats-grid__item">
+          <dt>Visibility</dt>
+          <dd id="stat-visibility">—</dd>
+        </div>
+      </dl>
+
+      <p class="result__updated" id="last-updated"></p>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
